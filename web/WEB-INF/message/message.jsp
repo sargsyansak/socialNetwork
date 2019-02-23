@@ -19,10 +19,14 @@
             <h2>From: ${message.fromId.name} To: ${message.toId.name}</h2>
             <p>${message.message}</p>
             <h5>${message.date}</h5>
+            <c:if test="${message.file != null}">
+                <a href="/getFile?file=${message.file}">Download</a>
+            </c:if>
         </c:forEach>
     </c:if>
     <form action="/user/sendMessage?userId=${requestScope.get('toUser').id}" method="post">
-        <input type="text" name="message">
+        Message: <input type="text" name="message">
+        File: <input type="file" name="file">
         <input type="submit">
 
     </form>

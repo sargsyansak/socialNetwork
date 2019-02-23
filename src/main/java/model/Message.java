@@ -16,5 +16,6 @@ public class Message {
     private User toId;
     private String message;
     private Date date;
+    private String file;
 
 }
