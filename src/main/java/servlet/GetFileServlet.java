@@ -8,26 +8,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.rmi.server.LogStream;
 
 @WebServlet("/getFile")
-
-public class FileServlet extends HttpServlet {
-
+public class GetFileServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String file = req.getParameter("file");
         OutputStream outputStream = resp.getOutputStream();
         FileInputStream fileInputStream = new FileInputStream("C:\\socialNetwork\\files\\" + file);
-        byte[] buf = new byte[4096];
-        int inRead = 0;
 
-        while ((inRead = fileInputStream.read()) > 0) {
-            outputStream.write(buf, 0, inRead);
-
+        byte[] buffer = new byte[4096];
+        int length;
+        while ((length = fileInputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
         }
         fileInputStream.close();
         outputStream.flush();
+
     }
 }

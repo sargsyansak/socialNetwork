@@ -21,13 +21,14 @@ public class MessageManager {
     public void addMessage(Message message) {
 
         try {
-            String query = "INSERT INTO message(`from_id`,`to_id`,`message`,`send_date`) "
-                    + "VALUES (?,?,?,?);";
+            String query = "INSERT INTO message(`from_id`,`to_id`,`message`,`send_date`,`file`) "
+                    + "VALUES (?,?,?,?,?);";
             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             statement.setLong(1, message.getFromId().getId());
             statement.setLong(2, message.getToId().getId());
             statement.setString(3, message.getMessage());
             statement.setString(4, DateUtil.convertDateToString(message.getDate()));
+            statement.setString(5, message.getFile());
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -55,8 +56,8 @@ public class MessageManager {
                 message.setToId(userManager.getUserById(resultSet.getInt(3)));
                 message.setMessage(resultSet.getString(4));
                 message.setDate(DateUtil.convertStringToDate(resultSet.getString(5)));
+                message.setFile(resultSet.getString(6));
                 messages.add(message);
-
             }
             if (getOtherMessages(id, toId) != null) {
                 messages.addAll(getOtherMessages(id, toId));
@@ -83,6 +84,7 @@ public class MessageManager {
                 message.setToId(userManager.getUserById(resultSet.getInt(3)));
                 message.setMessage(resultSet.getString(4));
                 message.setDate(DateUtil.convertStringToDate(resultSet.getString(5)));
+                message.setFile(resultSet.getString(6));
                 messages.add(message);
 
             }
