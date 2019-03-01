@@ -281,4 +281,24 @@ public class UserManager {
         }
 
     }
+
+    public void changeUserPassword(User user) {
+        try {
+            Statement statement = connection.createStatement();
+            String query = "UPDATE `user` SET `password` = '" + user.getPassword() + "' WHERE `id` = " + user.getId();
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeUserData(User user) {
+        try {
+            Statement statement = connection.createStatement();
+            String query = "UPDATE `user` SET `name` = '" + user.getName() + "', `surname` = '" + user.getSurname() + "', `pic_url`='" + user.getPicUrl() + "' WHERE `id` = " + user.getId();
+            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

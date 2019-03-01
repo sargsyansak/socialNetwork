@@ -12,12 +12,14 @@
 </head>
 <body>
 
-<img src="/getImage?picName=${sessionScope.get('user').picUrl}" width="100"/>
+<img src="/getImage?picName=${sessionScope.get('user').picUrl}" width="200px"/>
 <h2>${sessionScope.get('user').name}
 </h2>
 <h2>${sessionScope.get('user').surname}
 </h2>
 <a href="/logout">LOGOUT</a>
+<a href="/user/userProfile" id="changeProfile">Change Profile</a>
+
 
 
 <hr>
